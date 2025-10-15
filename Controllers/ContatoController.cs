@@ -46,6 +46,26 @@ namespace TestandoApi.Controllers
             return Ok(contato);
         }
 
+        [HttpGet("ObterContatoPorNome")]
+        public IActionResult ObterPorNome(string nome)
+        {
+            if (string.IsNullOrWhiteSpace(nome))
+            {
+                return BadRequest("O parâmetro 'nome' é obrigatório.");
+            }
+
+            var contatos = _context.Contatos.Where(x => x.Nome.ToLower().Contains(nome.ToLower())).ToList();
+
+            if (contatos.Any())
+            {
+                return Ok(contatos);
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+
         [HttpPut("{id}")]
         public IActionResult Atualizar(int id, Contato contato)
         {
