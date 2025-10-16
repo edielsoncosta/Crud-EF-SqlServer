@@ -30,7 +30,7 @@ namespace TestandoApi.Controllers
         {
             _context.Add(contato);
             _context.SaveChanges();
-            return Ok(contato);
+            return CreatedAtAction(nameof(ObterPorId), new {id = contato.Id}, contato);
         }
 
         // criando o select da API, e verificando caso seja o id nulo
